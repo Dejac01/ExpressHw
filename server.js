@@ -64,6 +64,35 @@ const responses = [
   });
 
 
+// 99 bottles
+
+
+
+// Home page route
+app.get('/', (req, res) => {
+  res.send(`
+    <h1>99 Bottles of beer on the wall</h1>
+    <a href="/98">take one down, pass it around</a>
+  `);
+});
+
+// Route with parameter for the number of bottles left
+app.get('/:numBottles', (req, res) => {
+  const numBottles = req.params.numBottles;
+
+  // show a "Start Over" link instead of "take one down" if 0 left
+  const takeOneDownLink = numBottles > 0 ? `<a href="/${numBottles - 1}">take one down, pass it around</a>` : `<a href="/">Start Over</a>`;
+
+  res.send(`
+    <h1>${numBottles} Bottles of beer on the wall.</h1>
+    ${takeOneDownLink}
+  `);
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});
 
 
   
